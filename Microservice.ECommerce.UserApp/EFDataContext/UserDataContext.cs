@@ -8,18 +8,6 @@ using System.Threading.Tasks;
 
 namespace Microservice.ECommerce.UserApp.EFDataContext
 {
-    //public class UserDataContext : DbContext
-    //{
-    //    private readonly IConfiguration configuration;
-
-    //    public UserDataContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
-    //    {
-    //        this.configuration = configuration;
-    //    }
-
-    //    public DbSet<User> Users { get; set; }
-    //}
-
     public class UserDataContext
     {
         public string ConnectionString { get; set; }

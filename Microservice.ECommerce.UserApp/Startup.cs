@@ -28,8 +28,6 @@ namespace Microservice.ECommerce.UserApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //WaitForDBInit(Configuration.GetConnectionString("DefaultConnection"));
-            //services.AddDbContext<UserDataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.Add(new ServiceDescriptor(typeof(UserDataContext), new UserDataContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
@@ -56,28 +54,6 @@ namespace Microservice.ECommerce.UserApp
             {
                 endpoints.MapControllers();
             });
-        }
-
-        // Try to connect to the db with exponential backoff on fail.
-        private static void WaitForDBInit(string connectionString)
-        {
-            var connection = new MySqlConnection(connectionString);
-            int retries = 1;
-            while (retries < 7)
-            {
-                try
-                {
-                    Console.WriteLine("Connecting to db. Trial: {0}", retries);
-                    connection.Open();
-                    connection.Close();
-                    break;
-                }
-                catch (MySqlException)
-                {
-                    Thread.Sleep((int)Math.Pow(2, retries) * 1000);
-                    retries++;
-                }
-            }
         }
     }
 }
