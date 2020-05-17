@@ -1,0 +1,19 @@
+services:
+  microservice.ecommerce.userapp:
+    build:
+      context: D:\Learning Meterial\Microservice\Microservice.ECommerce
+      dockerfile: Microservice.ECommerce.UserApp/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '44395'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: microserviceecommerceuserapp
+    ports:
+    - published: 65358
+      target: 80
+    - published: 44395
+      target: 443
+    volumes:
+    - C:\Users\asantosh\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\asantosh\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
